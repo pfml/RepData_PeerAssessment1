@@ -1,16 +1,66 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
+author: "Pierre_Lecointre"
+date: "Friday, November 14, 2014"
+output: html_document
+keep_md: true
 ---
+## Introduction
+It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a [Fitbit][1], [Nike Fuelband][2], or [Jawbone Up][3].  
+These type of devices are part of the "quantified self" movement -- a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. But these data remain under-utilized both because the raw data are hard to obtain and there is a lack of statistical methods and software for processing and interpreting the data.
 
+This assignment makes use of data from a personal activity monitoring device. This device collects data at 5 minute intervals through out the day.  
+The data consists of two months of data from an anonymous individual collected during the months of October and November, 2012 and include the number of steps taken in 5 minute intervals each day.  
+
+Let's prepare our environment :
+```{r setoptions}
+# to be able to read all code chunks, and place plots in the expected folder
+library(knitr)
+opts_chunk$set(echo=TRUE, fig.path="figures/")
+# libraries used
+library(ggplot2)
+```
 
 ## Loading and preprocessing the data
+Data are stored in an archive file (activity.zip), in a comma separated format (csv).
 
+### 1. Load the data
+```{r loaddata}
+unzip("activity.zip")
+unlink("activity.zip")
+activity <- read.csv("activity.csv", stringsAsFactors = FALSE)
+```
+### 2. Process / transform the data
+```{r preprocess}
+# Change class for the date variable
+activity$date <- as.Date(activity$date)
+```
+Each observation contains 3 variables :
 
+* the number of steps (`steps`); missing values coded as `NA`
+* the date (`date`) in YYYY_MM-DD format
+* a label for the 5 minute interval (`interval`) in an hhmm format (hh : hour, 0 to 23; mm : minutes, 0 to 55 in a 5 min steps).
+
+Let's have a look to a sample of the dataset : 
+```{r}
+head(activity)
+```
 
 ## What is mean total number of steps taken per day?
+
+For this part, we ignore the mission values in the dataset.
+
+### 1.make a histogram of the total number of steps taken each day.
+```{r}
+# Aggregate data by day
+activity_day <- aggregate(steps~date, data = activity, FUN = sum, na.rm=TRUE)
+# Plot histogram with ggplot2
+histogram <- ggplot (activity_day, aes(x=date, y=steps)) +
+        geom_bar() +
+        labs(title='Figure 1: Number of steps taken daily\n',y='Total steps per day', x='Date')
+plot(histogram)
+
+```
 
 
 
@@ -23,3 +73,8 @@ output:
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+
+
+[1]:http://www.fitbit.com/ "Fitbit"
+[2]:http://www.nike.com/us/en_us/c/nikeplus-fuelband/ "Nike Fuelband"
+[3]:https://jawbone.com/up/ "Jawbone Up"
