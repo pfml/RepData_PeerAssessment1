@@ -1,6 +1,12 @@
-# Reproducible Research: Peer Assessment 1
-Pierre_Lecointre  
-Friday, November 14, 2014  
+---
+title: "Reproducible Research: Peer Assessment 1"
+author: "Pierre_Lecointre"
+date: "Friday, November 14, 2014"
+output:
+        html_document:
+                toc: true
+                keep_md: true
+---
 ## Introduction
 It is now possible to collect a large amount of data about personal movement using activity monitoring devices such as a [Fitbit][1], [Nike Fuelband][2], or [Jawbone Up][3].  
 These type of devices are part of the "quantified self" movement -- a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. But these data remain under-utilized both because the raw data are hard to obtain and there is a lack of statistical methods and software for processing and interpreting the data.
@@ -13,13 +19,6 @@ Let's prepare our environment :
 ```r
 # to be able to read all code chunks, and place plots in the expected folder
 library(knitr)
-```
-
-```
-## Warning: package 'knitr' was built under R version 3.1.2
-```
-
-```r
 opts_chunk$set(echo=TRUE, fig.path="figures/")
 # libraries used
 library(ggplot2)
@@ -85,7 +84,7 @@ histo + geom_histogram(stat="identity") +
         labs(title='Figure 1: Steps per day\n', y='Total steps per day', x='Date')
 ```
 
-![](figures/plot1-1.png) 
+![plot of chunk plot1](figures/plot1-1.png) 
 
 ### 2. Calculate and report the mean and median total number of steps taken daily
 
@@ -110,7 +109,7 @@ stepByInterval + geom_line() +
         labs(title='Figure 2: Steps per interval\n', y='Average number steps per day', x='Interval')
 ```
 
-![](figures/plotinterval-1.png) 
+![plot of chunk plotinterval](figures/plotinterval-1.png) 
 
 ### 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
@@ -174,7 +173,7 @@ histo2 + geom_histogram(stat="identity") +
         labs(title='Figure 3: Steps per day (imputed data)\n', y='Total steps per day', x='Date')
 ```
 
-![](figures/plot3-1.png) 
+![plot of chunk plot3](figures/plot3-1.png) 
 
 
 
@@ -213,7 +212,7 @@ stepByIntervalWe + geom_line() +
         labs(title='Figure 4: Steps per interval\n', y='Average number steps per day', x='Interval')
 ```
 
-![](figures/plot4-1.png) 
+![plot of chunk plot4](figures/plot4-1.png) 
 
 
 [1]:http://www.fitbit.com/ "Fitbit"
